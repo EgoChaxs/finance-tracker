@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, ForeignKey, Integer, Numeric
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric
 from sqlalchemy.orm import relationship
 
 from src.database import Base
@@ -14,7 +14,7 @@ class GoalContributionModel(Base):
     # Columns
     contribution_id = Column(Integer, primary_key=True)
     amount = Column(Numeric(12, 2), nullable=False)
-    date = Column(Date, nullable=False)
+    occurred_at = Column(DateTime, nullable=False)
 
     # Foreign keys
     goal_id = Column(

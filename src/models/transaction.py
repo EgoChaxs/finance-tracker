@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric, String, Text
 from sqlalchemy.orm import relationship
 
 from src.database import Base
@@ -15,7 +15,7 @@ class TransactionModel(Base):
     transaction_id = Column(Integer, primary_key=True)
     type = Column(String(20), nullable=False)
     amount = Column(Numeric(12, 2), nullable=False)
-    date = Column(Date, nullable=False)
+    occurred_at = Column(DateTime, nullable=False)
     description = Column(String(255), nullable=False)
     notes = Column(Text, nullable=True)
 
