@@ -38,5 +38,6 @@ class CategoryModel(Base):
 
     budgets = relationship(
         "BudgetModel",
-        back_populates="category"
+        back_populates="category",
+        passive_deletes=True
     )

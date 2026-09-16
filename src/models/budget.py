@@ -27,9 +27,9 @@ class BudgetModel(Base):
         Integer,
         ForeignKey(
             "category.category_id",
-            ondelete="SET NULL"
+            ondelete="CASCADE"
         ),
-        nullable=True
+        nullable=False
     )
 
     # Relationships

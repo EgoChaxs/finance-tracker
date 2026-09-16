@@ -1,10 +1,16 @@
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine, MetaData, event
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 engine = create_engine(
     "sqlite:///data/finance_tracker.db",
     connect_args={"check_same_thread": False}
 )
+
+@event.listens_for(engine, "connect")
+def enable_sqlite_foreign_keys(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
 
 SessionLocal = sessionmaker(
     autocommit=False,

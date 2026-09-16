@@ -34,5 +34,6 @@ class SavingsGoalModel(Base):
 
     contributions = relationship(
         "GoalContributionModel",
-        back_populates="goal"
+        back_populates="goal",
+        cascade="all, delete-orphan"
     )
