@@ -9,8 +9,12 @@ from src.api.goals import goals_bp
 from src.database import SessionLocal
 from src.services.auth_service import get_user_from_session
 
+
 BASE_DIR = Path(__file__).resolve().parent
+
 AUTH_FRONTEND_DIR = BASE_DIR / "frontend" / "auth"
+APP_FRONTEND_DIR = BASE_DIR / "frontend" / "app"
+
 
 app = Flask(__name__)
 
@@ -32,10 +36,14 @@ def login_page():
         db = SessionLocal()
 
         try:
-            user = get_user_from_session(db, token)
+            user = get_user_from_session(
+                db=db,
+                token=token
+            )
 
             if user is not None:
                 return redirect("/")
+
         finally:
             db.close()
 
@@ -63,22 +71,29 @@ def index():
     db = SessionLocal()
 
     try:
-        user = get_user_from_session(db, token)
+        user = get_user_from_session(
+            db=db,
+            token=token
+        )
 
         if user is None:
             return redirect("/login")
+
     finally:
         db.close()
 
-    return """
-    <!DOCTYPE html>
-    <html>
-        <body>
-            <h1>Finance Tracker</h1>
-            <p>Authenticated.</p>
-        </body>
-    </html>
-    """
+    return send_from_directory(
+        APP_FRONTEND_DIR,
+        "index.html"
+    )
+
+
+@app.get("/app/<path:filename>")
+def app_assets(filename):
+    return send_from_directory(
+        APP_FRONTEND_DIR,
+        filename
+    )
 
 
 if __name__ == "__main__":
