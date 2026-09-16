@@ -1,8 +1,11 @@
+from flask import Flask, redirect, send_from_directory, request
 from pathlib import Path
 
-from flask import Flask, redirect, send_from_directory, request
-
 from src.api.authentication import auth_bp
+from src.api.transactions import transactions_bp
+from src.api.category import categories_bp
+from src.api.budget import budgets_bp
+from src.api.goals import goals_bp
 from src.database import SessionLocal
 from src.services.auth_service import get_user_from_session
 
@@ -10,7 +13,13 @@ BASE_DIR = Path(__file__).resolve().parent
 AUTH_FRONTEND_DIR = BASE_DIR / "frontend" / "auth"
 
 app = Flask(__name__)
+
 app.register_blueprint(auth_bp)
+app.register_blueprint(transactions_bp)
+app.register_blueprint(categories_bp)
+app.register_blueprint(budgets_bp)
+app.register_blueprint(goals_bp)
+
 
 SESSION_COOKIE_NAME = "session_token"
 
@@ -64,12 +73,9 @@ def index():
     return """
     <!DOCTYPE html>
     <html>
-        <head>
-            <title>Finance Tracker</title>
-        </head>
         <body>
-            <h1>Authentication successful.</h1>
-            <p>You reached the protected finance tracker page.</p>
+            <h1>Finance Tracker</h1>
+            <p>Authenticated.</p>
         </body>
     </html>
     """
