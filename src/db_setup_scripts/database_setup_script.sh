@@ -7,7 +7,7 @@ fi
 
 echo "Setting up database..."
 
-alembic upgrade head
+python -m alembic upgrade head
 
 if [ $? -ne 0 ]; then
     echo "Database setup failed."

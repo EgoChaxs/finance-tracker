@@ -10,7 +10,7 @@ from src.database import SessionLocal
 from src.services.auth_service import get_user_from_session
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 AUTH_FRONTEND_DIR = BASE_DIR / "frontend" / "auth"
 APP_FRONTEND_DIR = BASE_DIR / "frontend" / "app"
