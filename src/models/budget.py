@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Date, ForeignKey, Integer, Numeric
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, Numeric
 from sqlalchemy.orm import relationship
 
 from src.database import Base
@@ -14,7 +14,7 @@ class BudgetModel(Base):
     # Columns
     budget_id = Column(Integer, primary_key=True)
     amount = Column(Numeric(12, 2), nullable=False)
-    month = Column(Date, nullable=False)
+    month = Column(DateTime, nullable=False)
 
     # Foreign keys
     user_id = Column(
@@ -25,8 +25,11 @@ class BudgetModel(Base):
 
     category_id = Column(
         Integer,
-        ForeignKey("category.category_id"),
-        nullable=False
+        ForeignKey(
+            "category.category_id",
+            ondelete="SET NULL"
+        ),
+        nullable=True
     )
 
     # Relationships

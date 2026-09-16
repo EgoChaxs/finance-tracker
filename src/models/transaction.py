@@ -28,7 +28,10 @@ class TransactionModel(Base):
 
     category_id = Column(
         Integer,
-        ForeignKey("category.category_id"),
+        ForeignKey(
+            "category.category_id",
+            ondelete="SET NULL"
+        ),
         nullable=True
     )
 
