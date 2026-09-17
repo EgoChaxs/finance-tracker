@@ -1,0 +1,16 @@
+[Unit]
+Description=Finance Tracker Service
+After=network.target
+
+[Service]
+Type=simple
+User=YOUR_USERNAME
+WorkingDirectory=/home/YOUR_USERNAME/finance-tracker
+Environment="PATH=/home/YOUR_USERNAME/finance-tracker/venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/YOUR_USERNAME/finance-tracker/start.sh
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
